@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model RestaurantInfo {
+  id           String   @id @default(cuid())
+  name         String
+  slogan       String
+  description  String
+  address      String
+  city         String
+  region       String
+  whatsapp     String
+  phone        String
+  email        String
+  openingHours String
+  mapUrl       String
+  googleMapsUrl String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model MenuCategory {
+  id    String     @id @default(cuid())
+  name  String
+  slug  String     @unique
+  order Int
+  items MenuItem[]
+}
+
+model MenuItem {
+  id           String       @id @default(cuid())
+  name         String
+  slug         String       @unique
+  description  String
+  price        Int
+  imageUrl     String
+  featured     Boolean      @default(false)
+  badge        String?
+  serves       String?
+  active       Boolean      @default(true)
+  category     MenuCategory @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model GalleryCategory {
+  id     String        @id @default(cuid())
+  name   String
+  slug   String        @unique
+  images GalleryImage[]
+}
+
+model GalleryImage {
+  id           String          @id @default(cuid())
+  title        String
+  imageUrl     String
+  alt          String
+  featured     Boolean         @default(false)
+  category     GalleryCategory @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  text      String
+  rating    Int
+  location  String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model EventLead {
+  id            String   @id @default(cuid())
+  name          String
+  company       String
+  email         String
+  phone         String
+  attendees     Int
+  eventType     String
+  estimatedDate String
+  message       String
+  source        String?
+  createdAt     DateTime @default(now())
+}
+
+model ContactLead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+}
