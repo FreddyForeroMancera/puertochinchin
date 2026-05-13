@@ -79,7 +79,7 @@ export async function saveRestaurantInfo(formData: FormData) {
     googleMapsUrl: textValue(formData, 'googleMapsUrl')
   });
 
-  await prisma.restaurantInfo.upsert({
+  await prisma!.restaurantInfo.upsert({
     where: { id: 'restaurant-info' },
     create: { id: 'restaurant-info', ...data },
     update: data
@@ -105,9 +105,9 @@ export async function saveMenuCategory(formData: FormData) {
   });
 
   if (id) {
-    await prisma.menuCategory.update({ where: { id }, data });
+    await prisma!.menuCategory.update({ where: { id }, data });
   } else {
-    await prisma.menuCategory.create({ data });
+    await prisma!.menuCategory.create({ data });
   }
 
   revalidatePath('/menu');
@@ -144,9 +144,9 @@ export async function saveMenuItem(formData: FormData) {
   });
 
   if (id) {
-    await prisma.menuItem.update({ where: { id }, data });
+    await prisma!.menuItem.update({ where: { id }, data });
   } else {
-    await prisma.menuItem.create({ data });
+    await prisma!.menuItem.create({ data });
   }
 
   revalidatePath('/');
@@ -156,7 +156,7 @@ export async function saveMenuItem(formData: FormData) {
 
 export async function deleteMenuItem(formData: FormData) {
   requireDatabase();
-  await prisma.menuItem.delete({ where: { id: textValue(formData, 'id') } });
+  await prisma!.menuItem.delete({ where: { id: textValue(formData, 'id') } });
   revalidatePath('/');
   revalidatePath('/menu');
   revalidatePath('/admin');
@@ -176,9 +176,9 @@ export async function saveGalleryCategory(formData: FormData) {
   });
 
   if (id) {
-    await prisma.galleryCategory.update({ where: { id }, data });
+    await prisma!.galleryCategory.update({ where: { id }, data });
   } else {
-    await prisma.galleryCategory.create({ data });
+    await prisma!.galleryCategory.create({ data });
   }
 
   revalidatePath('/galeria');
@@ -205,9 +205,9 @@ export async function saveGalleryImage(formData: FormData) {
   });
 
   if (id) {
-    await prisma.galleryImage.update({ where: { id }, data });
+    await prisma!.galleryImage.update({ where: { id }, data });
   } else {
-    await prisma.galleryImage.create({ data });
+    await prisma!.galleryImage.create({ data });
   }
 
   revalidatePath('/');
@@ -235,9 +235,9 @@ export async function saveTestimonial(formData: FormData) {
   });
 
   if (id) {
-    await prisma.testimonial.update({ where: { id }, data });
+    await prisma!.testimonial.update({ where: { id }, data });
   } else {
-    await prisma.testimonial.create({ data });
+    await prisma!.testimonial.create({ data });
   }
 
   revalidatePath('/');

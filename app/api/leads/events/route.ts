@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const payload = await request.json();
     const data = eventSchema.parse(payload);
 
-    await prisma.eventLead.create({ data });
+    await prisma!.eventLead.create({ data });
 
     return NextResponse.json({ message: 'Evento registrado' });
   } catch (error) {

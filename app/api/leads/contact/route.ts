@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const payload = await request.json();
     const data = contactSchema.parse(payload);
 
-    await prisma.contactLead.create({ data });
+    await prisma!.contactLead.create({ data });
 
     return NextResponse.json({ message: 'Contacto recibido' });
   } catch (error) {
