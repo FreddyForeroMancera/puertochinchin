@@ -2,6 +2,11 @@ import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = global as unknown as { prisma?: PrismaClient };
 
-export const prisma = globalForPrisma.prisma || new PrismaClient();
+// Solo inicializamos Prisma si existe la URL de la base de datos
+export const prisma = typeof process.env.DATABASE_URL === 'string'
+  ? (globalForPrisma.prisma || new PrismaClient())
+  : null;
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== 'production' && prisma) {
+  globalForPrisma.prisma = prisma;
+}

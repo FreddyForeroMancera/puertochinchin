@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 type AdminData = Awaited<ReturnType<typeof getAdminData>>;
 
 async function getAdminData() {
-  if (!process.env.DATABASE_URL) {
+  if (!process.env.DATABASE_URL || !prisma) {
     return {
       databaseReady: false,
       restaurantInfo: fallbackRestaurantInfo,
